@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +30,9 @@ import java.util.List;
 public abstract class JCPrintBaseActivity extends AppCompatActivity implements PrinterManager.PrintListener {
     protected List<IDzPrinter.PrinterAddress> mAllPrinter;
     protected PrinterManager mPm;
-
     protected TextView mTvPrinterName;
+    //自动打印标识，子类可使用
+    protected boolean mAutoPrint;
 
     @Override
     public void onPrinterConnecting(IDzPrinter.PrinterAddress printer) {
@@ -93,15 +93,14 @@ public abstract class JCPrintBaseActivity extends AppCompatActivity implements P
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initPrinter();
     }
 
     protected void initPrinter() {
+        //未连接 ▼
         mTvPrinterName = getPrinterNameTextView();
-
-        mTvPrinterName.setText("未连接 ▼");
 
         mTvPrinterName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +122,8 @@ public abstract class JCPrintBaseActivity extends AppCompatActivity implements P
         if (mPm.isConnected()) {
             IDzPrinter.PrinterInfo cpi = mPm.getConnectedPrinterInfo();
             mTvPrinterName.setText(cpi.deviceName+"["+cpi.deviceAddress+ "]  ▼");
+
+            if (mAutoPrint) print();
         }else {
             mPm.autoConnect();
         }
