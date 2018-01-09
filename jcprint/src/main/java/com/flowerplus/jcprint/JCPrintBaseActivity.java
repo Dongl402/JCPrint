@@ -29,8 +29,8 @@ import java.util.List;
  */
 
 public abstract class JCPrintBaseActivity extends AppCompatActivity implements PrinterManager.PrintListener {
-    private List<IDzPrinter.PrinterAddress> mAllPrinter;
-    private PrinterManager mPm;
+    protected List<IDzPrinter.PrinterAddress> mAllPrinter;
+    protected PrinterManager mPm;
 
     protected TextView mTvPrinterName;
 
