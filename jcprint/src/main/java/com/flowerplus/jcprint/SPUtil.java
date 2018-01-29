@@ -11,7 +11,7 @@ public class SPUtil {
     private SPUtil() {}
 
     public static void putString(String key, String value) {
-        SharedPreferences sp = JCPrint.mContext.getSharedPreferences("JCPrint", Context.MODE_PRIVATE);
+        SharedPreferences sp = JCPrint.getContext().getSharedPreferences("JCPrint", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
         editor.putString(key, value);
@@ -20,7 +20,7 @@ public class SPUtil {
     }
 
     public static String getString(String key) {
-        SharedPreferences sp = JCPrint.mContext.getSharedPreferences("JCPrint", Context.MODE_PRIVATE);
+        SharedPreferences sp = JCPrint.getContext().getSharedPreferences("JCPrint", Context.MODE_PRIVATE);
         return sp.getString(key, "");
     }
 }
