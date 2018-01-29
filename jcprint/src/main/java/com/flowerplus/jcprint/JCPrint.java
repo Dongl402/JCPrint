@@ -7,9 +7,13 @@ import android.content.Context;
  */
 
 public class JCPrint {
-    public static Context mContext;
+    private static Context mContext;
 
     public static void install(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }
