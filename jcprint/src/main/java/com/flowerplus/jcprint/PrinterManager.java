@@ -92,13 +92,13 @@ public class PrinterManager {
     };
 
     public synchronized static PrinterManager getInstance() {
-        if (JCPrint.mContext == null) {
+        if (JCPrint.getContext() == null) {
             throw new RuntimeException("JCPrint's context can't be null!");
         }
 
         if (sInstance == null) {
             sInstance = new PrinterManager();
-            sInstance.mHandler = new Handler(JCPrint.mContext.getMainLooper());
+            sInstance.mHandler = new Handler(JCPrint.getContext().getMainLooper());
         }
         return sInstance;
     }
